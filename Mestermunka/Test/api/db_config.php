@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'perfume_store';
+$dbname = 'parfumvilag';
 $username = 'root';
 $password = '';
 
