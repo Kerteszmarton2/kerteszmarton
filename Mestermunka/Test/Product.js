@@ -20,8 +20,8 @@ function Product() {
           <img src={product.image_url} alt={product.name} className="img-fluid" />
           <p>{product.description}</p>
           <p><strong>Brand:</strong> {product.brand}</p>
-          <p><strong>Type:</strong> {product.type}</p>
-          <p><strong>Launch Year:</strong> {product.launch_year}</p>
+          <p><strong>Típus:</strong> {product.type}</p>
+         
         </div>
       ) : (
         <p>Loading...</p>
