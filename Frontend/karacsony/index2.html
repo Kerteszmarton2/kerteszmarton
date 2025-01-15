@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingatlan Ajánlatok</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <body>
+        <h1>Ingatlan Ajánlatok</h1>
+        <div class="card-container">
+         
+            <div class="card" id="addNewCard">
+                <h3>Új ingatlan hozzáadása</h3>
+                <input type="text" id="newTitle" class="email-input" placeholder="Ingatlan címe">
+                <textarea id="newDescription" class="email-input" placeholder="Ingatlan leírása" rows="4"></textarea>
+                <input type="text" id="newImageUrl" class="email-input" placeholder="Kép URL">
+                <button class="add-card-button">Hozzáadás</button>
+            </div>
+    
+            
+            <div class="card" data-id="1">
+                <img src="https://images.maxapro.hu/classified-images/001/003/114/9501141/photo_toszkan-villa-mediterran-hangulataval-elragado-luxus-csaladi-haz-gyorben-kisbacsa_75496512.jpg" alt="Ingatlan">
+                <h3>Toszkán Villa</h3>
+                <p>4 hálószoba, 2 fürdőszoba, hatalmas kertel. Ár: 100 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button>
+            </div>
+           
+            <div class="card" data-id="2"> <img src="https://th.bing.com/th/id/OIP.frTz2la5-uKCK8pokN48GgHaEK?w=318&h=180&c=7&r=0&o=5&pid=1.7" alt="Ingatlan">
+                <h3>Luxus Családi Ház</h3>
+                <p>4 hálószoba, 2 fürdőszoba, nagy kert és garázs. Ár: 120 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="3"> <img src="https://img.jofogas.hu/hdimages/Gencsapatiban_elado_exkluziv_csaladi_haz___ajandek_hoszivattyu___602452529793291.jpg" alt="Ingatlan">
+                <h3>Gencsapáti exkluzív családi ház</h3>
+                <p>2 szintes 5+ szobás, hűszivattyús fűtéssel. Ár: 95 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="4"> <img src="https://img.jofogas.hu/hdimages/Elado_80_nm_es_Csaladi_haz_Szeged_Ujszeged_619002557006891.jpg" alt="Ingatlan">
+                <h3>80nm-es családi ház Szegeden</h3>
+                <p>2 szobás téglaház. Ár: 90 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="5"> <img src="https://img.jofogas.hu/hdimages/Hajduhadhazon_70nm_es_cs_haz_147332550889187.jpg" alt="Ingatlan">
+                <h3>Hajdúhadházi 70nm-es ház</h3>
+                <p>1 szobás, gáz konvektror fűtéssel. Ár: 12 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="6"> <img src="https://img.jofogas.hu/hdimages/VII__Kerulet__Damjanich_utca__61_m2_es__foldszinti__tarsashazi_lakas_654072533364774.jpg" alt="Ingatlan">
+                <h3>VII. Kerület, Damjanich utca, 61 m2-es, földszinti, társasházi lakás</h3>
+                <p>3 szobás, gáz-cirkó fűtéssel, téglaház. Ár: 82.5 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="7"> <img src="https://img.jofogas.hu/hdimages/Elado_haz__Veresegyhaz_403002571081992.jpg" alt="Ingatlan">
+                <h3>Veresegyházi Ház</h3>
+                <p>2 szobás, gáz-cirkó fűtéssel, téglaház. Ár: 159 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="8"> <img src="https://img.jofogas.hu/hdimages/Ajkai_elado_90_nm_es_haz_281862571924757.jpg" alt="Ingatlan">
+                <h3>Ajkai eladó 90 nm-es ház</h3>
+                <p>3 szobás, gáz-cirkó fűtéssel, téglaház. Ár: 44 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="9"> <img src="https://img.jofogas.hu/hdimages/Elado_mezogazdasagi__Fulophaza_786872505065295.jpg" alt="Ingatlan">
+                <h3>Eladó mezőgazdasági, Fülöpháza</h3>
+                <p>242 m². Ár: 32.9 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="10"> <img src="https://img.jofogas.hu/hdimages/Elado_Telek__Miskolc__Pereces_866292443092481.jpg" alt="Ingatlan">
+                <h3>Eladó Telek, Miskolc, Pereces</h3>
+                <p>698 m². Ár: 5 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="11"> <img src="https://img.jofogas.hu/hdimages/Kotajban_4szoba_nappalis_felujitott_csaladi_haz_elado__928972534101372.jpg" alt="Ingatlan">
+                <h3>Kótajban 4szoba+nappalis felújított családi ház eladó!</h3>
+                <p>felújított 5+ szobás kertel. Ár: 44 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+            <div class="card" data-id="12"> <img src="https://img.jofogas.hu/hdimages/Elado_csaladi_haz_Tat_Kertvarosban_839482536911777.jpg" alt="Ingatlan">
+                <h3>Eladó családi ház Tát-Kertvárosbanz</h3>
+                <p>3 szobás, gáz-cirkó fűtéssel. Ár: 120 millió Ft.</p>
+                <input type="email" class="email-input" placeholder="Adja meg email címét">
+                <button class="interest-button">Érdeklődés</button></div>
+        </div>
+        <script src="app2.js"></script>
+</body>
+</html>
