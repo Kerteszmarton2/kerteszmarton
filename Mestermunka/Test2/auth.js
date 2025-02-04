@@ -38,7 +38,7 @@ function updateNavbar() {
 window.onload = () => {
     updateNavbar();
     // Példa: Bejelentkezés szimulálása 2 másodperc után
-    setTimeout(simulateLogin, 2000);
+    //setTimeout(simulateLogin, 2000);
     // Példa: Kilépés szimulálása 5 másodperc után
     // setTimeout(simulateLogout, 5000);
 };
