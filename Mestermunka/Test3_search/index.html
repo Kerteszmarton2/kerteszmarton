@@ -37,10 +37,16 @@
                     </select>
                 </div>
                 <div class="filter">
+                    <label for="priceRange">Ár tartomány:</label>
+                    <input type="range" id="priceRange" min="0" max="500" step="10" value="500">
+                    <span id="priceValue">500 Ft</span>
+                </div>
+                <div class="filter">
                     <label for="sort">Rendezés:</label>
                     <select id="sort">
-                        <option value="name">Név szerint</option>
-                        <option value="price">Ár szerint</option>
+                        <option value="name">Név szerint (A-Z)</option>
+                        <option value="price_asc">Ár szerint (növekvő)</option>
+                        <option value="price_desc">Ár szerint (csökkenő)</option>
                     </select>
                 </div>
             </aside>

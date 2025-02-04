@@ -77,11 +77,18 @@ aside {
     margin-bottom: 5px;
 }
 
-.filter select {
+.filter select, .filter input[type="range"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+#priceValue {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
 }
 
 #perfumesList {
