@@ -1,79 +1,49 @@
-function loadUserProfile() {
-    const profileNameElement = document.getElementById("profileName");
-    const profileEmailElement = document.getElementById("profileEmail");
-    const profileDateElement = document.getElementById("profileDate");
-
-    if (!profileNameElement || !profileEmailElement || !profileDateElement) {
-        console.error("Egy vagy több profil elem nem található.");
-        return;
-    }
+function loadProfile() {
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
+    const profileDate = document.getElementById("profileDate");
 
     // Példa adatok (helyettesítsd valós adatokkal)
-    profileNameElement.textContent = "Felhasználó";
-    profileEmailElement.textContent = "felhasznalo@example.com";
-    profileDateElement.textContent = "2023-10-01";
+    profileName.textContent = "Felhasználó";
+    profileEmail.textContent = "felhasznalo@example.com";
+    profileDate.textContent = "2023-10-01";
 }
 
-function toggleEditFormVisibility(visible) {
-    const editForm = document.getElementById("editProfileForm");
-    if (!editForm) {
-        console.error("Az űrlap elem nem található.");
-        return;
-    }
-    editForm.classList.toggle("d-none", !visible);
-}
-
-function updateProfileData(newName, newEmail) {
-    const profileNameElement = document.getElementById("profileName");
-    const profileEmailElement = document.getElementById("profileEmail");
-
-    if (!profileNameElement || !profileEmailElement) {
-        console.error("Egy vagy több profil elem nem található.");
-        return;
-    }
-
-    profileNameElement.textContent = newName;
-    profileEmailElement.textContent = newEmail;
-}
-
+// Szerkesztési űrlap megjelenítése/elrejtése
 document.getElementById("editProfileButton").addEventListener("click", () => {
-    toggleEditFormVisibility(true);
+    const editForm = document.getElementById("editProfileForm");
+    editForm.classList.remove("d-none");
 });
 
 document.getElementById("cancelEditButton").addEventListener("click", () => {
-    toggleEditFormVisibility(false);
+    const editForm = document.getElementById("editProfileForm");
+    editForm.classList.add("d-none");
 });
 
+// Profil adatok frissítése
 document.getElementById("profileForm").addEventListener("submit", (e) => {
     e.preventDefault();
-
-    const newName = document.getElementById("editName").value.trim();
-    const newEmail = document.getElementById("editEmail").value.trim();
-    const newPassword = document.getElementById("editPassword").value.trim();
-
-    if (!newName || !newEmail) {
-        alert("Kérlek, töltsd ki az összes kötelező mezőt.");
-        return;
-    }
+    const newName = document.getElementById("editName").value;
+    const newEmail = document.getElementById("editEmail").value;
+    const newPassword = document.getElementById("editPassword").value;
 
     // Példa: Adatok frissítése (ide jönne a valós adatbázis művelet)
-    updateProfileData(newName, newEmail);
+    document.getElementById("profileName").textContent = newName;
+    document.getElementById("profileEmail").textContent = newEmail;
     alert("Adatok frissítve!");
 
     // Űrlap elrejtése
-    toggleEditFormVisibility(false);
+    document.getElementById("editProfileForm").classList.add("d-none");
 });
 
+// Kijelentkezés
 document.getElementById("logoutButton").addEventListener("click", () => {
     // Példa: Kijelentkezési logika
     alert("Sikeresen kijelentkeztél!");
     window.location.href = "index.html"; // Átirányítás a főoldalra
 });
 
-// Oldal betöltésekor betöltjük a profil adatokat és bejelentkezünk a menüsornézetbe 3 másodpercen később
+// Oldal betöltésekor betöltjük a profil adatokat
 window.onload = () => {
-    loadUserProfile();
-    setTimeout(() => {
-        window.location.href = "menu.html"; // Átirányítás a menüsornézetre
-    }, 3000); // 3 másodperc
+    loadProfile();
 };
