@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parfüm Értékelő</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .rating {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .rating label {
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .rating label.active,
+        .rating label:hover {
+            color: gold;
+        }
+        textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .reviews {
+            margin-top: 30px;
+        }
+        .review {
+            background: #f1f1f1;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .review p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Parfüm Értékelése</h1>
+        <form id="reviewForm">
+            <label for="rating">Értékelés (1-5):</label>
+            <div class="rating" id="starRating">
+                <label data-value="1">★</label>
+                <label data-value="2">★</label>
+                <label data-value="3">★</label>
+                <label data-value="4">★</label>
+                <label data-value="5">★</label>
+            </div>
+
+            <label for="comment">Vélemény:</label>
+            <textarea id="comment" name="comment" maxlength="500" required></textarea>
+
+            <button type="submit">Értékelés Elküldése</button>
+        </form>
+
+        <div class="reviews" id="reviewsList">
+            <h2>Értékelések:</h2>
+        </div>
+    </div>
+
+    <script>
+        // Mock adattárolás helyi tömbben
+        let reviews = [];
+
+        // Csillagok inicializálása
+        const stars = document.querySelectorAll('.rating label');
+        let selectedRating = 0;
+
+        // Hover hatás hozzáadása
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseover', () => {
+                stars.forEach((s, i) => {
+                    s.classList.toggle('active', i <= index);
+                });
+            });
+
+            star.addEventListener('mouseout', () => {
+                stars.forEach((s, i) => {
+                    s.classList.toggle('active', i < selectedRating);
+                });
+            });
+
+            // Kattintás kezelése
+            star.addEventListener('click', () => {
+                selectedRating = index + 1; // Az értékelés 1-től indul
+                stars.forEach((s, i) => {
+                    s.classList.toggle('active', i < selectedRating);
+                });
+            });
+        });
+
+        // Űrlap elküldése eseménykezelője
+        document.getElementById('reviewForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Megakadályozza az oldal újratöltését
+
+            if (selectedRating === 0) {
+                alert('Kérlek, válassz egy értékelést a csillagokkal.');
+                return;
+            }
+
+            const commentInput = document.getElementById('comment');
+            const comment = commentInput.value.trim();
+
+            // Validáció
+            if (comment === '') {
+                alert('Kérlek, írj egy véleményt.');
+                return;
+            }
+
+            // Új értékelés létrehozása
+            const newReview = {
+                id: reviews.length + 1,
+                rating: selectedRating,
+                comment: comment,
+                created_at: new Date().toLocaleString()
+            };
+
+            // Hozzáadás az értékelések listájához
+            reviews.push(newReview);
+
+            // Formanyomtatvány törlése
+            selectedRating = 0;
+            stars.forEach(star => star.classList.remove('active'));
+            commentInput.value = '';
+
+            // Frissítés az értékelések megjelenítésével
+            renderReviews();
+        });
+
+        // Értékelések megjelenítése a felületen
+        function renderReviews() {
+            const reviewsList = document.getElementById('reviewsList');
+            reviewsList.innerHTML = '<h2>Értékelések:</h2>';
+
+            if (reviews.length === 0) {
+                reviewsList.innerHTML += '<p>Még nincsenek értékelések.</p>';
+                return;
+            }
+
+            reviews.forEach(review => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.classList.add('review');
+
+                reviewDiv.innerHTML = `
+                    <p><strong>Értékelés:</strong> ${'★'.repeat(review.rating)}</p>
+                    <p><strong>Vélemény:</strong> ${review.comment}</p>
+                    <p><em>Küldve: ${review.created_at}</em></p>
+                `;
+
+                reviewsList.appendChild(reviewDiv);
+            });
+        }
+    </script>
+</body>
+</html>
