@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light d-none d-md-block">
             <div class="container-fluid">
@@ -45,7 +46,10 @@
                         <option value="6">Ipari ingatlan</option>
                     </select>
                 </div>
-
+                <div class="mb-3">
+                    <label for="property-photo" class="form-label">Fénykép az ingatlanról</label>
+                    <input type="url" class="form-control" id="property-photo" placeholder="Írja be a kép URL-jét">
+                </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">Hirdetés dátuma</label>
                     <input type="date" class="form-control" id="date" disabled>
@@ -66,9 +70,15 @@
     </div>
 
     <script>
-        window.onload = (event) => {
-            document.querySelector('#today').value = new Date().toISOString().split('T')[0];
-        };
+        
+      document.addEventListener("DOMContentLoaded", function () {
+    const dateElement = document.querySelector("#today");
+    if (dateElement) {
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0]; 
+        dateElement.value = formattedDate;
+    }
+});
     </script>
     
     <script src="dist/bootstrap/js/bootstrap.bundle.min.js"></script>

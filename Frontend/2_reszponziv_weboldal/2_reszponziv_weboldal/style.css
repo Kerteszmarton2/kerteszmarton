@@ -1,14 +1,27 @@
 .start {
     background-image: url('img/real-estate-agent.png');
     min-height: 100vh;
-}
+    
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+
 
 @media (min-width: 768px) {
     .start {
         min-height: calc(100vh - 4rem);
     }
 }
-
+.fw-bold{
+    color: #20c997 ;
+}
+.float-end{
+    color:#20c997 
+}
+.navbar .active {
+    color: rgb(71, 71, 150); 
+    font-weight: bold; 
+}
 .start .btn {
     width: 14rem;
 }
