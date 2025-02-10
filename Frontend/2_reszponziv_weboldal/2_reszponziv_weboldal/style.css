@@ -13,10 +13,10 @@
     }
 }
 .fw-bold{
-    color: #20c997 ;
+    color: rgb(217, 243, 240) ;
 }
 .float-end{
-    color:#20c997 
+    color:rgb(217, 243, 240) 
 }
 .navbar .active {
     color: rgb(71, 71, 150); 

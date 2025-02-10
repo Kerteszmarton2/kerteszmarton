@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="hu">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,9 +8,7 @@
     <link rel="stylesheet" href="dist/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light d-none d-md-block">
             <div class="container-fluid">
@@ -30,7 +27,6 @@
                 </div>
             </div>
         </nav>
-
         <h2 class="mb-4 text-center">Új hirdetés elküldése</h2>
         <div class="row">
             <div class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 col-12">
@@ -51,8 +47,8 @@
                     <input type="url" class="form-control" id="property-photo" placeholder="Írja be a kép URL-jét">
                 </div>
                 <div class="mb-3">
-                    <label for="date" class="form-label">Hirdetés dátuma</label>
-                    <input type="date" class="form-control" id="date" disabled>
+                    <label for="today" class="form-label">Hirdetés dátuma</label>
+                    <input type="date" class="form-control" id="today" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Ingatlan leírása</label>
@@ -68,20 +64,18 @@
             </div>
         </div>
     </div>
-
     <script>
-        
-      document.addEventListener("DOMContentLoaded", function () {
-    const dateElement = document.querySelector("#today");
-    if (dateElement) {
-        const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0]; 
-        dateElement.value = formattedDate;
-    }
-});
+        document.addEventListener("DOMContentLoaded", function () {
+            const dateElement = document.querySelector("#today");
+            if (dateElement) {
+                const today = new Date();
+                const formattedDate = today.toISOString().split('T')[0]; // YYYY-MM-DD formátum
+                dateElement.value = formattedDate;
+            } else {
+                console.error("Az 'id=today' elem nem található az oldalon.");
+            }
+        });
     </script>
-    
     <script src="dist/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
