@@ -1,23 +1,20 @@
-let users = JSON.parse(localStorage.getItem("users")) || []; // Regisztrált felhasználók listája
-let isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) || false;
-let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
+let isLoggedIn = false; // Alapértelmezett: nincs bejelentkezve
+let username = ""; // Felhasználónév
 
-function simulateLogin(user) {
+// Bejelentkezés szimulálása
+function simulateLogin() {
     isLoggedIn = true;
-    currentUser = user;
-    localStorage.setItem("isLoggedIn", JSON.stringify(true));
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    username = "Felhasználó"; // Példa felhasználónév
     updateNavbar();
 }
+
 
 function simulateLogout() {
     isLoggedIn = false;
-    currentUser = null;
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("currentUser");
+    username = "";
     updateNavbar();
-    window.location.href = "index.html";
 }
+
 
 function updateNavbar() {
     const loginItem = document.getElementById("loginItem");
@@ -25,11 +22,11 @@ function updateNavbar() {
     const profileItem = document.getElementById("profileItem");
     const usernameDisplay = document.getElementById("usernameDisplay");
 
-    if (isLoggedIn && currentUser) {
+    if (isLoggedIn) {
         loginItem.classList.add("d-none");
         registerItem.classList.add("d-none");
         profileItem.classList.remove("d-none");
-        usernameDisplay.textContent = currentUser.username;
+        usernameDisplay.textContent = username;
     } else {
         loginItem.classList.remove("d-none");
         registerItem.classList.remove("d-none");
@@ -37,47 +34,11 @@ function updateNavbar() {
     }
 }
 
-document.getElementById("registerForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const username = document.getElementById("registerUsername").value.trim();
-    const email = document.getElementById("registerEmail").value.trim();
-    const password = document.getElementById("registerPassword").value.trim();
-
-    if (!username || !email || !password) {
-        alert("Kérlek, töltsd ki az összes mezőt!");
-        return;
-    }
-
-    if (users.find(user => user.email === email)) {
-        alert("Ez az e-mail cím már regisztrálva van!");
-        return;
-    }
-
-    users.push({ username, email, password });
-    localStorage.setItem("users", JSON.stringify(users));
-    alert("Sikeres regisztráció! Most jelentkezz be.");
-    window.location.href = "login.html";
-});
-
-document.getElementById("loginForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const loginEmail = document.getElementById("loginUsername").value.trim();
-    const loginPassword = document.getElementById("loginPassword").value.trim();
-
-    const user = users.find(user => user.email === loginEmail && user.password === loginPassword);
-    if (!user) {
-        alert("Hibás e-mail vagy jelszó!");
-        return;
-    }
-
-    simulateLogin(user);
-    alert("Sikeresen bejelentkeztél!");
-    window.location.href = "index.html";
-});
-
-document.getElementById("logoutButton").addEventListener("click", () => {
-    simulateLogout();
-    alert("Sikeresen kijelentkeztél!");
-});
-
-window.onload = updateNavbar;
+// Oldal betöltésekor frissítjük a navigációs sávot
+window.onload = () => {
+    updateNavbar();
+    // Példa: Bejelentkezés szimulálása 2 másodperc után
+    //setTimeout(simulateLogin, 2000);
+    // Példa: Kilépés szimulálása 5 másodperc után
+    // setTimeout(simulateLogout, 5000);
+};
