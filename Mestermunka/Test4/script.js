@@ -1,10 +1,10 @@
 // NewsAPI kulcs
 const API_KEY = "001f49d7cbf241f1bfeed545c38a76c2";
 
-// URL a parfüm hírekhez
-const lastMonth = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+// URL a parfüm hírekhez (csak 10 találat)
+const API_URL = `https://newsapi.org/v2/everything?q=perfume NOT (concert OR Genius OR novelist OR Trump OR Orders OR walmart OR habit OR Delicious OR PNOĒS OR Sophie OR Pizza OR Sci-Fi OR Logitech OR Watch OR Shoes OR Message OR Apothecary OR weekend OR Beauty OR Nightstand OR Reeves OR Shoe OR 韓国 OR Card OR Alba OR Apple OR Egyptian OR BWS OR Captain OR Recipe OR books OR Crossword OR rubbish OR Tea OR Candle OR Wine OR J-Pop OR robbers  OR Newborn OR Bella OR Snacks OR Chronological OR Sexuality OR Stepsister OR Amazon OR Strange OR cheating )&language=en&sortBy=relevancy&apiKey=${API_KEY}`;
+ 
 
-const API_URL = `https://newsapi.org/v2/everything?q=perfume NOT (concert OR Genius OR novelist OR Trump OR husband OR walmart OR habit OR Delicious OR PNOĒS OR Pizza OR Sci-Fi OR Logitech OR Watch OR Shoes OR Apothecary)&language=en&sortBy=relevancy&apiKey=${API_KEY}`;
 // DOM elemek
 const newsContainer = document.getElementById("news-container");
 
@@ -15,7 +15,8 @@ async function fetchNews() {
     const data = await response.json();
 
     if (data.articles && data.articles.length > 0) {
-      data.articles.forEach(article => {
+      // Csak a legelső 10 hírt jelenítjük meg
+      data.articles.slice(0, 10).forEach(article => {
         const { title, description, url, urlToImage } = article;
 
         // HTML elem létrehozása

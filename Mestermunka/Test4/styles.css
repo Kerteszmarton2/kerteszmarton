@@ -1,86 +1,138 @@
 /* Általános stílusok */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+.site-header {
+  background: linear-gradient(135deg, #6c5ce7, #81ecec);
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.site-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.site-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  animation: fadeIn 2s ease-in-out;
+}
+
+main {
+  padding: 20px;
+}
+
+.news-grid {
+  display: grid;
+  gap: 20px;
+  justify-content: center;
+}
+
+.news-item {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.news-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.news-item h2 {
+  font-size: 1.3rem;
+  margin: 15px;
+  padding: 0;
+  color: #4a3f9e;
+  transition: color 0.3s ease;
+}
+
+.news-item h2:hover {
+  color: #6c5ce7;
+}
+
+.news-item p {
+  margin: 15px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.news-item a {
+  display: inline-block;
+  text-align: center;
+  margin: 15px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #6c5ce7, #81ecec);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: background 0.3s ease;
+}
+
+.news-item a:hover {
+  background: linear-gradient(135deg, #81ecec, #6c5ce7);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #6c5ce7;
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Animációk */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  header {
-    background-color: #6c5ce7;
-    color: white;
-    text-align: center;
-    padding: 20px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  h1 {
-    margin: 0;
-    font-size: 2rem;
+}
+
+/* Responsive stílusok */
+@media (min-width: 768px) {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  main {
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .news-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .news-item {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 350px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  
-  .news-item:hover {
-    transform: scale(1.02);
-  }
-  
-  .news-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  .news-item h2 {
-    font-size: 1.2rem;
-    margin: 10px;
-    padding: 0;
-  }
-  
-  .news-item p {
-    margin: 10px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-  
-  .news-item a {
-    display: block;
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
-    background-color: #6c5ce7;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .news-item a:hover {
-    background-color: #4a3f9e;
-  }
-  
-  footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #6c5ce7;
-    color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
+}
