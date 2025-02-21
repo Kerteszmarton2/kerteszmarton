@@ -1,9 +1,10 @@
 // NewsAPI kulcs
 const API_KEY = "001f49d7cbf241f1bfeed545c38a76c2";
 
-// URL a parfüm témájú hírekhez
-const API_URL = `https://newsapi.org/v2/everything?q=parfüm OR illat&language=hu&sortBy=publishedAt&apiKey=${API_KEY}`;
+// URL a parfüm hírekhez
+const lastMonth = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
+const API_URL = `https://newsapi.org/v2/everything?q=perfume NOT (concert OR Genius OR novelist OR Trump OR husband OR walmart OR habit OR Delicious OR PNOĒS OR Pizza OR Sci-Fi OR Logitech OR Watch OR Shoes OR Apothecary)&language=en&sortBy=relevancy&apiKey=${API_KEY}`;
 // DOM elemek
 const newsContainer = document.getElementById("news-container");
 
@@ -37,7 +38,7 @@ async function fetchNews() {
         newsContainer.appendChild(newsItem);
       });
     } else {
-      newsContainer.innerHTML = "<p>Nem találhatók hírek.</p>";
+      newsContainer.innerHTML = "<p>Nem találhatók releváns hírek.</p>";
     }
   } catch (error) {
     console.error("Hiba történt az adatok lekérése során:", error);
