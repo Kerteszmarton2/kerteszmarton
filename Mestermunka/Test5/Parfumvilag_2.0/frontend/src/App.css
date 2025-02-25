@@ -1,156 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #1a1a1a;
+  --secondary: #ff6b6b;
+  --accent: #4ecdc4;
+  --surface: #ffffff;
+  --surface-alt: #f8f9fa;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  transition: background 0.3s ease;
 }
 
-.container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-  margin-left: 280px; /* Ensure the content does not overlap with the sidebar */
-}
-
+/* Modern navigáció */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  background: var(--gradient);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 4rem;
+  box-shadow: 0 4px 10px var(--shadow);
+  z-index: 1000;
+  animation: slideDown 0.5s ease-out;
 }
 
 .navbar a {
   color: white;
-  text-decoration: none;
-  margin-left: 15px;
+  font-weight: 500;
+  margin-left: 2.5rem;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
-.navbar a:hover {
-  text-decoration: underline;
+.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  bottom: -4px;
+  left: 0;
+  transition: width 0.3s ease;
 }
 
+.navbar a:hover::after {
+  width: 100%;
+}
+
+/* Intelligens oldalsáv */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--gradient);
+  padding: 3rem 2rem;
+  box-shadow: 2px 0 20px var(--shadow);
+  transition: transform 0.3s ease;
+  transform: translateX(0);
 }
 
 .sidebar ul li {
-  margin-bottom: 15px;
+  margin-bottom: 1.8rem;
 }
 
 .sidebar ul li a {
   color: white;
-  text-decoration: none;
-  font-size: 18px;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
 }
 
 .sidebar ul li a:hover {
-  text-decoration: underline;
+  transform: translateX(8px);
+  color: var(--accent);
 }
 
+/* Dinamikus tartalomterület */
+.container {
+  padding: 4rem 2rem;
+  margin-left: 280px;
+  max-width: 1300px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Interaktív termékkártyák */
 .perfume-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  padding: 2rem 0;
 }
 
 .perfume-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  width: calc(33.333% - 20px);
-  box-sizing: border-box;
-  background-color: white;
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.perfume-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .perfume-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.perfume-card:hover img {
+  transform: scale(1.05);
 }
 
 .perfume-card h3 {
-  margin: 10px 0;
-  font-size: 18px;
+  color: var(--primary);
+  font-size: 1.75rem;
+  margin: 1.2rem 0;
 }
 
 .perfume-card p {
-  margin: 5px 0;
-  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
 }
 
-.auth-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+/* Modern űrlapok */
+.auth-form, .profile-settings {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 3rem;
+  box-shadow: 0 8px 25px var(--shadow);
+  transition: transform 0.3s ease;
 }
 
-.auth-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.auth-form input, .profile-settings input {
+  border: 2px solid #eee;
+  border-radius: 10px;
+  padding: 1.2rem;
+  transition: all 0.3s ease;
 }
 
-.auth-form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.auth-form input:focus, .profile-settings input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
 }
 
-.auth-form button:hover {
-  background-color: #555;
+.auth-form button, .profile-settings button {
+  background: linear-gradient(135deg, var(--secondary) 0%, #ff5a5a 100%);
+  border-radius: 10px;
+  padding: 1.3rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
-.profile-settings {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.auth-form button:hover, .profile-settings button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 90, 90, 0.3);
 }
 
-.profile-settings input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+/* Speciális animációk */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
-.profile-settings button {
-  width: 100%;
-  padding: 10px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.profile-settings button:hover {
-  background-color: #555;
+/* Válaszreaktív dizájn */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-280px);
+  }
+  
+  .container {
+    margin-left: 0;
+  }
+  
+  .perfume-list {
+    grid-template-columns: 1fr;
+  }
 }

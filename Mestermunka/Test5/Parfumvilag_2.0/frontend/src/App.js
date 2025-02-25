@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Sidebar />
+     
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />

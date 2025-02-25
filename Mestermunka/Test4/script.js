@@ -16,7 +16,7 @@ async function fetchNews() {
 
     if (data.articles && data.articles.length > 0) {
       // Csak a legelső 10 hírt jelenítjük meg
-      data.articles.slice(0, 10).forEach(article => {
+      data.articles.slice(0, 12).forEach(article => {
         const { title, description, url, urlToImage } = article;
 
         // HTML elem létrehozása
