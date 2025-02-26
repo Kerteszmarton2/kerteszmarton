@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const getAllPerfumes = async (searchTerm = "") => {
+const getAllPerfumes = async (searchTerm = '') => {
   try {
     const response = await axios.get(`/api/perfumes?search=${searchTerm}`);
     return response.data;
@@ -20,7 +20,7 @@ const getPerfumeById = async (id) => {
 
 const createPerfume = async (perfume) => {
   try {
-    const response = await axios.post("/api/perfumes", perfume);
+    const response = await axios.post('/api/perfumes', perfume);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -45,10 +45,4 @@ const deletePerfume = async (id) => {
   }
 };
 
-export {
-  getAllPerfumes,
-  getPerfumeById,
-  createPerfume,
-  updatePerfume,
-  deletePerfume,
-};
+export { getAllPerfumes, getPerfumeById, createPerfume, updatePerfume, deletePerfume };

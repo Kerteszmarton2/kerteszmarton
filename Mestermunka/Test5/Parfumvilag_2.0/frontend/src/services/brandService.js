@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 const getAllBrands = async () => {
   try {
-    const response = await axios.get("/api/brands");
+    const response = await axios.get('/api/brands');
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -20,7 +20,7 @@ const getBrandById = async (id) => {
 
 const createBrand = async (brand) => {
   try {
-    const response = await axios.post("/api/brands", brand);
+    const response = await axios.post('/api/brands', brand);
     return response.data;
   } catch (error) {
     throw error.response.data;

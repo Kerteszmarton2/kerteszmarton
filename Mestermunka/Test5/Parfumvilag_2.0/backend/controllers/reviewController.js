@@ -23,14 +23,14 @@ exports.getReviewById = (req, res) => {
 };
 
 exports.createReview = (req, res) => {
-  const { intensity_rating, value_rating, scent_trail_rating, overall_rating, review_text } = req.body;
+  const { scent_trail_rating, longevity_rating, value_rating, overall_impression, review_text } = req.body;
   const review = {
     perfume_id: req.params.id,
     user_id: req.user.id,
-    intensity_rating,
-    value_rating,
     scent_trail_rating,
-    overall_rating,
+    longevity_rating,
+    value_rating,
+    overall_impression,
     review_text,
     created_at: new Date()
   };
@@ -44,12 +44,12 @@ exports.createReview = (req, res) => {
 };
 
 exports.updateReview = (req, res) => {
-  const { intensity_rating, value_rating, scent_trail_rating, overall_rating, review_text } = req.body;
+  const { scent_trail_rating, longevity_rating, value_rating, overall_impression, review_text } = req.body;
   const review = {
-    intensity_rating,
-    value_rating,
     scent_trail_rating,
-    overall_rating,
+    longevity_rating,
+    value_rating,
+    overall_impression,
     review_text,
     created_at: new Date()
   };

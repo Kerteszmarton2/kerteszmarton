@@ -18,15 +18,15 @@ function ReviewList({ perfumeId }) {
   }, [perfumeId]);
 
   return (
-    <div>
+    <div className="review-list">
       <h2>Reviews</h2>
       {reviews.map(review => (
-        <div key={review.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
+        <div key={review.id} className="review-item">
           <h4>User: {review.user_id.name}</h4>
-          <p>Intensity: {review.intensity_rating}</p>
-          <p>Value: {review.value_rating}</p>
           <p>Scent Trail: {review.scent_trail_rating}</p>
-          <p>Overall: {review.overall_rating}</p>
+          <p>Longevity: {review.longevity_rating}</p>
+          <p>Value: {review.value_rating}</p>
+          <p>Overall Impression: {review.overall_impression}</p>
           <p>Review Text: {review.review_text}</p>
           <p>Created At: {new Date(review.created_at).toLocaleString()}</p>
         </div>

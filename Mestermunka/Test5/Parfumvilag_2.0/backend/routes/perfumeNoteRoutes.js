@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const perfumeNoteController = require("../controllers/perfumeNoteController");
+const perfumeController = require('../controllers/perfumeController');
 
-router.get("/", perfumeNoteController.getAllPerfumeNotes);
-router.get("/:id", perfumeNoteController.getPerfumeNoteById);
-router.post("/", perfumeNoteController.createPerfumeNote);
-router.put("/:id", perfumeNoteController.updatePerfumeNote);
-router.delete("/:id", perfumeNoteController.deletePerfumeNote);
+router.get('/', perfumeController.getAllPerfumes);
+router.get('/:id', perfumeController.getPerfumeById);
+router.post('/', perfumeController.createPerfume);
+router.put('/:id', perfumeController.updatePerfume);
+router.delete('/:id', perfumeController.deletePerfume);
 
 module.exports = router;

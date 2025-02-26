@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 const getAllReviews = async () => {
   try {
-    const response = await axios.get("/api/reviews");
+    const response = await axios.get('/api/reviews');
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -18,9 +18,13 @@ const getReviewById = async (id) => {
   }
 };
 
-const createReview = async (review) => {
+const createReview = async (perfumeId, review) => {
   try {
-    const response = await axios.post("/api/reviews", review);
+    const response = await axios.post(`/api/reviews/${perfumeId}`, review, {
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -29,7 +33,11 @@ const createReview = async (review) => {
 
 const updateReview = async (id, review) => {
   try {
-    const response = await axios.put(`/api/reviews/${id}`, review);
+    const response = await axios.put(`/api/reviews/${id}`, review, {
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -38,17 +46,15 @@ const updateReview = async (id, review) => {
 
 const deleteReview = async (id) => {
   try {
-    const response = await axios.delete(`/api/reviews/${id}`);
+    const response = await axios.delete(`/api/reviews/${id}`, {
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    });
     return response.data;
-  } catch (error) {
+  } catch (error)  {
     throw error.response.data;
   }
 };
 
-export {
-  getAllReviews,
-  getReviewById,
-  createReview,
-  updateReview,
-  deleteReview,
-};
+export { getAllReviews, getReviewById, createReview, updateReview, deleteReview };

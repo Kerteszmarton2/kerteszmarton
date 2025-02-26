@@ -1,11 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const storeController = require("../controllers/storeController");
+const searchLogController = require('../controllers/searchLogController');
+const authMiddleware = require('../middleware/authMiddleware');
 
-router.get("/", storeController.getAllStores);
-router.get("/:id", storeController.getStoreById);
-router.post("/", storeController.createStore);
-router.put("/:id", storeController.updateStore);
-router.delete("/:id", storeController.deleteStore);
+router.get('/', searchLogController.getAllSearchLogs);
+router.get('/:id', searchLogController.getSearchLogById);
+router.post('/', authMiddleware, searchLogController.createSearchLog);
 
 module.exports = router;
