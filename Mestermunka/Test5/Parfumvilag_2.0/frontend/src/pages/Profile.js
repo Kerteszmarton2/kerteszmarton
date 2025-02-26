@@ -1,13 +1,25 @@
-import React from "react";
-import ProfileSettings from "../components/ProfileSettings";
+// frontend/src/pages/Profile.js
+function Profile() {
+  const [user, setUser] = useState({});
 
-const Profile = () => {
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/users/me');
+        setUser(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
-    <div className="profile-settings">
+    <div>
       <h2>Profile</h2>
-      <ProfileSettings />
+      <p>Name: {user.name}</p>
+      <p>Email: {user.email}</p>
+      <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
     </div>
   );
-};
-
-export default Profile;
+}

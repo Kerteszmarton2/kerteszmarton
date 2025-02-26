@@ -1,19 +1,15 @@
-const mongoose = require("mongoose");
+// backend/models/Review.js
+const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-  perfume_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Perfume",
-    required: true,
-  },
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  rating: { type: Number, min: 1, max: 5 },
+  perfume_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Perfume', required: true },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  intensity_rating: { type: Number, min: 1, max: 5, required: true },
+  value_rating: { type: Number, min: 1, max: 5, required: true },
+  scent_trail_rating: { type: Number, min: 1, max: 5, required: true },
+  overall_rating: { type: Number, min: 1, max: 5, required: true },
   review_text: { type: String },
-  created_at: { type: Date, default: Date.now },
+  created_at: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Review", reviewSchema);
+module.exports = mongoose.model('Review', reviewSchema);
