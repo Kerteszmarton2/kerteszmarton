@@ -1,38 +1,78 @@
-// frontend/src/components/ReviewList.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
 
-function ReviewList({ perfumeId }) {
+const ReviewList = ({ perfumeId }) => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(`/api/reviews?perfume_id=${perfumeId}`);
-        setReviews(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchReviews();
+    // Ide kerül a backend hívás
+    const mockReviews = [
+      {
+        sillage: 4,
+        longevity: 5,
+        value: 4,
+        overall: 5,
+        comment: "Remek parfüm, nagyon tartós!",
+        date: new Date().toLocaleString("hu-HU"),
+      },
+      {
+        sillage: 3,
+        longevity: 4,
+        value: 3,
+        overall: 4,
+        comment: "Jó illat, de nem túlzottan drágára.",
+        date: new Date().toLocaleString("hu-HU"),
+      },
+    ];
+    setReviews(mockReviews);
   }, [perfumeId]);
 
   return (
     <div className="review-list">
-      <h2>Reviews</h2>
-      {reviews.map(review => (
-        <div key={review.id} className="review-item">
-          <h4>User: {review.user_id.name}</h4>
-          <p>Scent Trail: {review.scent_trail_rating}</p>
-          <p>Longevity: {review.longevity_rating}</p>
-          <p>Value: {review.value_rating}</p>
-          <p>Overall Impression: {review.overall_impression}</p>
-          <p>Review Text: {review.review_text}</p>
-          <p>Created At: {new Date(review.created_at).toLocaleString()}</p>
-        </div>
-      ))}
+      <h2>Értékelések</h2>
+      {reviews.length === 0 ? (
+        <p>Még nincsenek értékelések ehhez a parfümhöz.</p>
+      ) : (
+        reviews.map((review, index) => (
+          <div key={index} className="review">
+            <p>
+              <strong>Illatfelhő (Sillage):</strong>{" "}
+              {Array(review.sillage).fill("★").join("")}{" "}
+              {Array(5 - review.sillage)
+                .fill("☆")
+                .join("")}
+            </p>
+            <p>
+              <strong>Tartósság (Longevity):</strong>{" "}
+              {Array(review.longevity).fill("★").join("")}{" "}
+              {Array(5 - review.longevity)
+                .fill("☆")
+                .join("")}
+            </p>
+            <p>
+              <strong>Ár/Érték arány (Value):</strong>{" "}
+              {Array(review.value).fill("★").join("")}{" "}
+              {Array(5 - review.value)
+                .fill("☆")
+                .join("")}
+            </p>
+            <p>
+              <strong>Összbenyomás (Overall):</strong>{" "}
+              {Array(review.overall).fill("★").join("")}{" "}
+              {Array(5 - review.overall)
+                .fill("☆")
+                .join("")}
+            </p>
+            <p>
+              <strong>Megjegyzés:</strong> {review.comment}
+            </p>
+            <p>
+              <strong>Dátum:</strong> {review.date}
+            </p>
+          </div>
+        ))
+      )}
     </div>
   );
-}
+};
 
 export default ReviewList;
