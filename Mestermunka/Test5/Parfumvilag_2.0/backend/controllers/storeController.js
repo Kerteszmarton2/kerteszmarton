@@ -55,4 +55,9 @@ exports.deleteStore = (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else if (results.affectedRows === 0) {
-      res.status(404
+      res.status(404).json({ error: 'Store not found' });
+    } else {
+      res.status(200).json({ message: 'Store deleted successfully' });
+    }
+  });
+};
