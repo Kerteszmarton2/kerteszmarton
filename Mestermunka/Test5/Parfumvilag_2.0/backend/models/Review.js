@@ -1,15 +1,29 @@
-// backend/models/Review.js
-const mongoose = require('mongoose');
+const db = require('../db');
 
-const reviewSchema = new mongoose.Schema({
-  perfume_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Perfume', required: true },
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  intensity_rating: { type: Number, min: 1, max: 5, required: true },
-  value_rating: { type: Number, min: 1, max: 5, required: true },
-  scent_trail_rating: { type: Number, min: 1, max: 5, required: true },
-  overall_rating: { type: Number, min: 1, max: 5, required: true },
-  review_text: { type: String },
-  created_at: { type: Date, default: Date.now }
-});
+const getAllReviews = (callback) => {
+  db.query('SELECT * FROM reviews', callback);
+};
 
-module.exports = mongoose.model('Review', reviewSchema);
+const getReviewById = (id, callback) => {
+  db.query('SELECT * FROM reviews WHERE id = ?', [id], callback);
+};
+
+const createReview = (review, callback) => {
+  db.query('INSERT INTO reviews SET ?', review, callback);
+};
+
+const updateReview = (id, review, callback) => {
+  db.query('UPDATE reviews SET ? WHERE id = ?', [review, id], callback);
+};
+
+const deleteReview = (id, callback) => {
+  db.query('DELETE FROM reviews WHERE id = ?', [id], callback);
+};
+
+module.exports = {
+  getAllReviews,
+  getReviewById,
+  createReview,
+  updateReview,
+  deleteReview
+};

@@ -1,13 +1,29 @@
-// backend/models/Perfume.js
-const mongoose = require('mongoose');
+const db = require('../db');
 
-const perfumeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  brand_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Brand', required: true },
-  gender: { type: String, enum: ['male', 'female', 'unisex'] },
-  type: { type: String },
-  description: { type: String },
-  image_url: { type: String }
-});
+const getAllPerfumes = (callback) => {
+  db.query('SELECT * FROM perfumes', callback);
+};
 
-module.exports = mongoose.model('Perfume', perfumeSchema);
+const getPerfumeById = (id, callback) => {
+  db.query('SELECT * FROM perfumes WHERE id = ?', [id], callback);
+};
+
+const createPerfume = (perfume, callback) => {
+  db.query('INSERT INTO perfumes SET ?', perfume, callback);
+};
+
+const updatePerfume = (id, perfume, callback) => {
+  db.query('UPDATE perfumes SET ? WHERE id = ?', [perfume, id], callback);
+};
+
+const deletePerfume = (id, callback) => {
+  db.query('DELETE FROM perfumes WHERE id = ?', [id], callback);
+};
+
+module.exports = {
+  getAllPerfumes,
+  getPerfumeById,
+  createPerfume,
+  updatePerfume,
+  deletePerfume
+};

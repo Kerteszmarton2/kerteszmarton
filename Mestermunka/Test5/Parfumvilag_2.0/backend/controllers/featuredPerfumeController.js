@@ -1,63 +1,63 @@
-const FeaturedPerfume = require("../models/FeaturedPerfume");
+const FeaturedPerfume = require('../models/FeaturedPerfume');
 
-exports.getAllFeaturedPerfumes = async (req, res) => {
-  try {
-    const featuredPerfumes = await FeaturedPerfume.find().populate(
-      "perfume_id"
-    );
-    res.status(200).json(featuredPerfumes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getAllFeaturedPerfumes = (req, res) => {
+  FeaturedPerfume.getAllFeaturedPerfumes((err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(results);
+    }
+  });
 };
 
-exports.getFeaturedPerfumeById = async (req, res) => {
-  try {
-    const featuredPerfume = await FeaturedPerfume.findById(
-      req.params.id
-    ).populate("perfume_id");
-    if (!featuredPerfume)
-      return res.status(404).json({ error: "Featured Perfume not found" });
-    res.status(200).json(featuredPerfume);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getFeaturedPerfumeById = (req, res) => {
+  FeaturedPerfume.getFeaturedPerfumeById(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Featured Perfume not found' });
+    } else {
+      res.status(200).json(results[0]);
+    }
+  });
 };
 
-exports.createFeaturedPerfume = async (req, res) => {
-  try {
-    const featuredPerfume = new FeaturedPerfume(req.body);
-    await featuredPerfume.save();
-    res.status(201).json(featuredPerfume);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.createFeaturedPerfume = (req, res) => {
+  FeaturedPerfume.createFeaturedPerfume(req.body, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ id: results.insertId, ...req.body });
+    }
+  });
 };
 
-exports.updateFeaturedPerfume = async (req, res) => {
-  try {
-    const featuredPerfume = await FeaturedPerfume.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    ).populate("perfume_id");
-    if (!featuredPerfume)
-      return res.status(404).json({ error: "Featured Perfume not found" });
-    res.status(200).json(featuredPerfume);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.updateFeaturedPerfume = (req, res) => {
+  FeaturedPerfume.updateFeaturedPerfume(req.params.id, req.body, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Featured Perfume not found' });
+    } else {
+      FeaturedPerfume.getFeaturedPerfumeById(req.params.id, (err, results) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.status(200).json(results[0]);
+        }
+      });
+    }
+  });
 };
 
-exports.deleteFeaturedPerfume = async (req, res) => {
-  try {
-    const featuredPerfume = await FeaturedPerfume.findByIdAndDelete(
-      req.params.id
-    );
-    if (!featuredPerfume)
-      return res.status(404).json({ error: "Featured Perfume not found" });
-    res.status(200).json({ message: "Featured Perfume deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.deleteFeaturedPerfume = (req, res) => {
+  FeaturedPerfume.deleteFeaturedPerfume(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Featured Perfume not found' });
+    } else {
+      res.status(200).json({ message: 'Featured Perfume deleted successfully' });
+    }
+  });
 };

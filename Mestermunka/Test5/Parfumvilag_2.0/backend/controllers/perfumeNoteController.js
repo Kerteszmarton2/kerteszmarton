@@ -1,61 +1,63 @@
-const PerfumeNote = require("../models/PerfumeNote");
+const PerfumeNote = require('../models/PerfumeNote');
 
-exports.getAllPerfumeNotes = async (req, res) => {
-  try {
-    const perfumeNotes = await PerfumeNote.find().populate(
-      "perfume_id note_id"
-    );
-    res.status(200).json(perfumeNotes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getAllPerfumeNotes = (req, res) => {
+  PerfumeNote.getAllPerfumeNotes((err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(results);
+    }
+  });
 };
 
-exports.getPerfumeNoteById = async (req, res) => {
-  try {
-    const perfumeNote = await PerfumeNote.findById(req.params.id).populate(
-      "perfume_id note_id"
-    );
-    if (!perfumeNote)
-      return res.status(404).json({ error: "Perfume Note not found" });
-    res.status(200).json(perfumeNote);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getPerfumeNoteById = (req, res) => {
+  PerfumeNote.getPerfumeNoteById(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Perfume Note not found' });
+    } else {
+      res.status(200).json(results[0]);
+    }
+  });
 };
 
-exports.createPerfumeNote = async (req, res) => {
-  try {
-    const perfumeNote = new PerfumeNote(req.body);
-    await perfumeNote.save();
-    res.status(201).json(perfumeNote);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.createPerfumeNote = (req, res) => {
+  PerfumeNote.createPerfumeNote(req.body, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ id: results.insertId, ...req.body });
+    }
+  });
 };
 
-exports.updatePerfumeNote = async (req, res) => {
-  try {
-    const perfumeNote = await PerfumeNote.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    ).populate("perfume_id note_id");
-    if (!perfumeNote)
-      return res.status(404).json({ error: "Perfume Note not found" });
-    res.status(200).json(perfumeNote);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.updatePerfumeNote = (req, res) => {
+  PerfumeNote.updatePerfumeNote(req.params.id, req.body, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Perfume Note not found' });
+    } else {
+      PerfumeNote.getPerfumeNoteById(req.params.id, (err, results) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.status(200).json(results[0]);
+        }
+      });
+    }
+  });
 };
 
-exports.deletePerfumeNote = async (req, res) => {
-  try {
-    const perfumeNote = await PerfumeNote.findByIdAndDelete(req.params.id);
-    if (!perfumeNote)
-      return res.status(404).json({ error: "Perfume Note not found" });
-    res.status(200).json({ message: "Perfume Note deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.deletePerfumeNote = (req, res) => {
+  PerfumeNote.deletePerfumeNote(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Perfume Note not found' });
+    } else {
+      res.status(200).json({ message: 'Perfume Note deleted successfully' });
+    }
+  });
 };

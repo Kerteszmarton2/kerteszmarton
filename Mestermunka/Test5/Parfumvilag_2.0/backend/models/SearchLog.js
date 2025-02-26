@@ -1,9 +1,19 @@
-const mongoose = require("mongoose");
+const db = require('../db');
 
-const searchLogSchema = new mongoose.Schema({
-  search_term: { type: String, required: true },
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  created_at: { type: Date, default: Date.now },
-});
+const getAllSearchLogs = (callback) => {
+  db.query('SELECT * FROM search_logs', callback);
+};
 
-module.exports = mongoose.model("SearchLog", searchLogSchema);
+const getSearchLogById = (id, callback) => {
+  db.query('SELECT * FROM search_logs WHERE id = ?', [id], callback);
+};
+
+const createSearchLog = (searchLog, callback) => {
+  db.query('INSERT INTO search_logs SET ?', searchLog, callback);
+};
+
+module.exports = {
+  getAllSearchLogs,
+  getSearchLogById,
+  createSearchLog
+};

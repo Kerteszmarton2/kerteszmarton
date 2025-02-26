@@ -1,73 +1,83 @@
-// backend/controllers/reviewController.js
 const Review = require('../models/Review');
-const Perfume = require('../models/Perfume');
-const User = require('../models/User');
 
-exports.getAllReviews = async (req, res) => {
-  try {
-    const reviews = await Review.find().populate('perfume_id user_id');
-    res.status(200).json(reviews);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getAllReviews = (req, res) => {
+  Review.getAllReviews((err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(results);
+    }
+  });
 };
 
-exports.getReviewById = async (req, res) => {
-  try {
-    const review = await Review.findById(req.params.id).populate('perfume_id user_id');
-    if (!review) return res.status(404).json({ error: 'Review not found' });
-    res.status(200).json(review);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getReviewById = (req, res) => {
+  Review.getReviewById(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Review not found' });
+    } else {
+      res.status(200).json(results[0]);
+    }
+  });
 };
 
-exports.createReview = async (req, res) => {
-  try {
-    const { intensity_rating, value_rating, scent_trail_rating, overall_rating, review_text } = req.body;
-    const review = new Review({
-      perfume_id: req.params.id,
-      user_id: req.user.id,
-      intensity_rating,
-      value_rating,
-      scent_trail_rating,
-      overall_rating,
-      review_text
-    });
-    await review.save();
-    res.status(201).json(review);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.createReview = (req, res) => {
+  const { intensity_rating, value_rating, scent_trail_rating, overall_rating, review_text } = req.body;
+  const review = {
+    perfume_id: req.params.id,
+    user_id: req.user.id,
+    intensity_rating,
+    value_rating,
+    scent_trail_rating,
+    overall_rating,
+    review_text,
+    created_at: new Date()
+  };
+  Review.createReview(review, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ id: results.insertId, ...review });
+    }
+  });
 };
 
-exports.updateReview = async (req, res) => {
-  try {
-    const { intensity_rating, value_rating, scent_trail_rating, overall_rating, review_text } = req.body;
-    const review = await Review.findByIdAndUpdate(
-      req.params.id,
-      {
-        intensity_rating,
-        value_rating,
-        scent_trail_rating,
-        overall_rating,
-        review_text
-      },
-      { new: true }
-    ).populate('perfume_id user_id');
-    if (!review) return res.status(404).json({ error: 'Review not found' });
-    res.status(200).json(review);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.updateReview = (req, res) => {
+  const { intensity_rating, value_rating, scent_trail_rating, overall_rating, review_text } = req.body;
+  const review = {
+    intensity_rating,
+    value_rating,
+    scent_trail_rating,
+    overall_rating,
+    review_text,
+    created_at: new Date()
+  };
+  Review.updateReview(req.params.id, review, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Review not found' });
+    } else {
+      Review.getReviewById(req.params.id, (err, results) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.status(200).json(results[0]);
+        }
+      });
+    }
+  });
 };
 
-exports.deleteReview = async (req, res) => {
-  try {
-    const review = await Review.findByIdAndDelete(req.params.id);
-    if (!review) return res.status(404).json({ error: 'Review not found' });
-    res.status(200).json({ message: 'Review deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.deleteReview = (req, res) => {
+  Review.deleteReview(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.affectedRows === 0) {
+      res.status(404).json({ error: 'Review not found' });
+    } else {
+      res.status(200).json({ message: 'Review deleted successfully' });
+    }
+  });
 };

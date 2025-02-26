@@ -1,15 +1,29 @@
-const mongoose = require("mongoose");
+const db = require('../db');
 
-const storeSchema = new mongoose.Schema({
-  perfume_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Perfume",
-    required: true,
-  },
-  store_name: { type: String, required: true },
-  price: { type: Number, required: true },
-  currency: { type: String, required: true },
-  url: { type: String },
-});
+const getAllStores = (callback) => {
+  db.query('SELECT * FROM stores', callback);
+};
 
-module.exports = mongoose.model("Store", storeSchema);
+const getStoreById = (id, callback) => {
+  db.query('SELECT * FROM stores WHERE id = ?', [id], callback);
+};
+
+const createStore = (store, callback) => {
+  db.query('INSERT INTO stores SET ?', store, callback);
+};
+
+const updateStore = (id, store, callback) => {
+  db.query('UPDATE stores SET ? WHERE id = ?', [store, id], callback);
+};
+
+const deleteStore = (id, callback) => {
+  db.query('DELETE FROM stores WHERE id = ?', [id], callback);
+};
+
+module.exports = {
+  getAllStores,
+  getStoreById,
+  createStore,
+  updateStore,
+  deleteStore
+};

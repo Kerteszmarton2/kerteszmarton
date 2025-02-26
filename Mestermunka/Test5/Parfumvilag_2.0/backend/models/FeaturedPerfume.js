@@ -1,13 +1,29 @@
-const mongoose = require("mongoose");
+const db = require('../db');
 
-const featuredPerfumeSchema = new mongoose.Schema({
-  perfume_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Perfume",
-    required: true,
-  },
-  start_date: { type: Date },
-  end_date: { type: Date },
-});
+const getAllFeaturedPerfumes = (callback) => {
+  db.query('SELECT * FROM featured_perfumes', callback);
+};
 
-module.exports = mongoose.model("FeaturedPerfume", featuredPerfumeSchema);
+const getFeaturedPerfumeById = (id, callback) => {
+  db.query('SELECT * FROM featured_perfumes WHERE id = ?', [id], callback);
+};
+
+const createFeaturedPerfume = (featuredPerfume, callback) => {
+  db.query('INSERT INTO featured_perfumes SET ?', featuredPerfume, callback);
+};
+
+const updateFeaturedPerfume = (id, featuredPerfume, callback) => {
+  db.query('UPDATE featured_perfumes SET ? WHERE id = ?', [featuredPerfume, id], callback);
+};
+
+const deleteFeaturedPerfume = (id, callback) => {
+  db.query('DELETE FROM featured_perfumes WHERE id = ?', [id], callback);
+};
+
+module.exports = {
+  getAllFeaturedPerfumes,
+  getFeaturedPerfumeById,
+  createFeaturedPerfume,
+  updateFeaturedPerfume,
+  deleteFeaturedPerfume
+};

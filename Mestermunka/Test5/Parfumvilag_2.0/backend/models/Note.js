@@ -1,8 +1,29 @@
-const mongoose = require("mongoose");
+const db = require('../db');
 
-const noteSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  type: { type: String, enum: ["top", "heart", "base"], required: true },
-});
+const getAllNotes = (callback) => {
+  db.query('SELECT * FROM notes', callback);
+};
 
-module.exports = mongoose.model("Note", noteSchema);
+const getNoteById = (id, callback) => {
+  db.query('SELECT * FROM notes WHERE id = ?', [id], callback);
+};
+
+const createNote = (note, callback) => {
+  db.query('INSERT INTO notes SET ?', note, callback);
+};
+
+const updateNote = (id, note, callback) => {
+  db.query('UPDATE notes SET ? WHERE id = ?', [note, id], callback);
+};
+
+const deleteNote = (id, callback) => {
+  db.query('DELETE FROM notes WHERE id = ?', [id], callback);
+};
+
+module.exports = {
+  getAllNotes,
+  getNoteById,
+  createNote,
+  updateNote,
+  deleteNote
+};

@@ -1,33 +1,38 @@
-const SearchLog = require("../models/SearchLog");
+const SearchLog = require('../models/SearchLog');
 
-exports.getAllSearchLogs = async (req, res) => {
-  try {
-    const searchLogs = await SearchLog.find().populate("user_id");
-    res.status(200).json(searchLogs);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getAllSearchLogs = (req, res) => {
+  SearchLog.getAllSearchLogs((err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(results);
+    }
+  });
 };
 
-exports.getSearchLogById = async (req, res) => {
-  try {
-    const searchLog = await SearchLog.findById(req.params.id).populate(
-      "user_id"
-    );
-    if (!searchLog)
-      return res.status(404).json({ error: "Search Log not found" });
-    res.status(200).json(searchLog);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.getSearchLogById = (req, res) => {
+  SearchLog.getSearchLogById(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Search Log not found' });
+    } else {
+      res.status(200).json(results[0]);
+    }
+  });
 };
 
-exports.createSearchLog = async (req, res) => {
-  try {
-    const searchLog = new SearchLog(req.body);
-    await searchLog.save();
-    res.status(201).json(searchLog);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+exports.createSearchLog = (req, res) => {
+  const searchLog = {
+    search_term: req.body.search_term,
+    user_id: req.user.id,
+    created_at: new Date()
+  };
+  SearchLog.createSearchLog(searchLog, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ id: results.insertId, ...searchLog });
+    }
+  });
 };
